@@ -1,6 +1,10 @@
 #!/bin/bash
 
-sleep 10
+until mysqladmin ping -h mariadb --silent; do
+    echo "Waiting for MariaDB...";
+    sleep 2;
+done
+
 wp config create --allow-root \
             --dbname=$SQL_DATABASE \
             --dbuser=$SQL_USER \
@@ -17,6 +21,6 @@ wp core install --allow-root \
 
 wp user create mlefort mlefort@42.fr 
                         --role=contributor \
-                        --user_password='mlefort' \
+                        --user_password=$SQL_PASSWORD \
                         --display_name='mlefort' \
                         --allow-root || exit 1
