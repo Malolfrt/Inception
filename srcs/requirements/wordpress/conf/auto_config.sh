@@ -5,6 +5,8 @@ until mysqladmin ping -h mariadb --silent; do
     sleep 2;
 done
 
+sleep 10;
+
 wp config create --allow-root \
             --dbname=$SQL_DATABASE \
             --dbuser=$SQL_USER \
