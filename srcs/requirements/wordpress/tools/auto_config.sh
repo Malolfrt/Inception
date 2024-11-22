@@ -10,39 +10,39 @@ sleep 10;
 
 cd /var/www/html/wordpress
 
-if ! wp core is-installed; then
-wp config create --allow-root --dbname=${SQL_DATABASE} \
+# if ! wp core is-installed; then
+    wp config create --allow-root --dbname=${SQL_DATABASE} \
             --dbuser=${SQL_USER} \
             --dbpass=${SQL_PASSWORD} \
             --dbhost=${SQL_HOST} \
             --url=https://${DOMAIN_NAME};
 
-wp core install --allow-root \
+    wp core install --allow-root \
             --url=https://{DOMAIN_NAME} \
             --title=${SITE_TITLE} \
             --admin_user=${ADMIN_USER} \
             --admin_password=${ADMIN_PASSWORD} \
             --admin_email=${ADMIN_MAIL};
 
-wp user create      --allow-root \
+    wp user create      --allow-root \
         ${USER1_LOGIN} ${USER1_MAIL} \
         --role=author \
         --user_pass=${USER1_PASS} \
 
-wp cache flush --allow-root
+    wp cache flush --allow-root
 
 # it provides an easy-to-use interface for creating custom contact forms and managing submissions
-wp plugin install contact-form-7 --activate
+wp plugin install contact-form-7 --activate --allow-root
 
 # set the site language to english
-wp language core install en_US --activate
+wp language core install en_US --activate --allow-root
 
 # remove default themes and plugings
-wp theme delete twemtynineteen twentytwenty
-wp plugin delete hello
+wp theme delete twemtynineteen twentytwenty --allow-root
+wp plugin delete hello --allow-root
 
 # set the permalink structure
-wp rewrite structure '/%postname%/'
+wp rewrite structure '/%postname%/' --allow-root
 
 fi
 
@@ -51,4 +51,4 @@ if [ ! -d /run/php ]; then
 fi
 
 # start the PHP FastCGI Process Manager (FPM) for PHP version 7.3 in the foreground
-exec /usr/sbin/php-fm7.3 -F -R
+exec /usr/sbin/php-fpm7.4 -F -R

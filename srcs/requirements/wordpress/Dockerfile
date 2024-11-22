@@ -2,9 +2,9 @@ FROM debian:bullseye
 
 RUN apt-get update -y && apt-get upgrade -y
 RUN apt-get install wget -y
-RUN apt-get install -y php7.3 \
-php-fpm  \
-php-mysql
+RUN apt-get install -y php7.3
+RUN apt-get install -y php-fpm
+RUn apt-get install -y php-mysql
 
 RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
     && chmod +x wp-cli.phar \
