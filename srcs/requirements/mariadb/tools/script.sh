@@ -18,11 +18,12 @@ if [ -z "$DB_EXISTS" ]; then
     echo "Database does not exist. Configuring MariaDB..."
     mysql -u root <<EOF
     CREATE DATABASE IF NOT EXISTS ${SQL_DATABASE};
+    USE ${SQL_DATABASE};
     CREATE USER '${SQL_USER}'@'%' IDENTIFIED BY '${SQL_PASSWORD}';
     GRANT ALL PRIVILEGES ON ${SQL_DATABASE}.* TO '${SQL_USER}'@'%' IDENTIFIED BY '${SQL_PASSWORD}';
     ALTER USER 'root'@'localhost' IDENTIFIED BY '${SQL_ROOT_PASSWORD}';
     GRANT ALL PRIVILEGES ON ${SQL_DATABASE}.* TO '${ADMIN_USER}'@'wordpress.inception' IDENTIFIED BY '${SQL_PASSWORD}';
-    GRANT ALL PRIVILEGES ON *${SQL_DATABASE}* TO '${SQL_USER}'@'%' IDENTIFIED BY '${SQL_PASSWORD}';
+    GRANT ALL PRIVILEGES ON ${SQL_DATABASE}.* TO '${SQL_USER}'@'%' IDENTIFIED BY '${SQL_PASSWORD}';
     FLUSH PRIVILEGES;
 EOF
     touch /var/lib/mysql/.mysql_initialized
