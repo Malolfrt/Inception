@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# S'assurer que le dossier existe
 mkdir -p /var/www/html/wordpress
 mv /var/www/html/wp-config.php /var/www/html/wordpress/wp-config.php
 
@@ -29,11 +28,9 @@ if ! wp core is-installed --allow-root --path=/var/www/html/wordpress/; then
     wp rewrite structure '/%postname%/' --allow-root --path=/var/www/html/wordpress/
 fi
 
-# Assurer les permissions
 chown -R www-data:www-data /var/www/html/wordpress
 chmod -R 755 /var/www/html/wordpress
 
-# Créer le dossier pour PHP si nécessaire
 if [ ! -d "/run/php" ]; then
     mkdir -p /run/php
 fi
@@ -41,5 +38,4 @@ fi
 chown -R www-data:www-data /run/php
 chmod -R 755 /run/php
 
-# Lancer PHP-FPM
 exec /usr/sbin/php-fpm7.4 -F -R
