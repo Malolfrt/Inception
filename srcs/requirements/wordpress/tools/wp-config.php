@@ -8,14 +8,14 @@ define('DB_CHARSET', 'utf8mb4');
 define('DB_COLLATE', '');
 
 // Clés de sécurité
-// define('AUTH_KEY', 'your_unique_auth_key');
-// define('SECURE_AUTH_KEY', 'your_unique_secure_auth_key');
-// define('LOGGED_IN_KEY', 'your_unique_logged_in_key');
-// define('NONCE_KEY', 'your_unique_nonce_key');
-// define('AUTH_SALT', 'your_unique_auth_salt');
-// define('SECURE_AUTH_SALT', 'your_unique_secure_auth_salt');
-// define('LOGGED_IN_SALT', 'your_unique_logged_in_salt');
-// define('NONCE_SALT', 'your_unique_nonce_salt');
+define('AUTH_KEY', 'your_unique_auth_key');
+define('SECURE_AUTH_KEY', 'your_unique_secure_auth_key');
+define('LOGGED_IN_KEY', 'your_unique_logged_in_key');
+define('NONCE_KEY', 'your_unique_nonce_key');
+define('AUTH_SALT', 'your_unique_auth_salt');
+define('SECURE_AUTH_SALT', 'your_unique_secure_auth_salt');
+define('LOGGED_IN_SALT', 'your_unique_logged_in_salt');
+define('NONCE_SALT', 'your_unique_nonce_salt');
 
 // Préfixe des tables
 $table_prefix = 'wp_';
