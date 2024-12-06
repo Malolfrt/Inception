@@ -5,13 +5,11 @@ mv /var/www/html/wp-config.php /var/www/html/wordpress/wp-config.php
 
 sleep 10;
 
-# Télécharger WordPress si nécessaire
 if [ ! -f /var/www/html/wordpress/wp-config-sample.php ]; then
     echo "Downloading WordPress..."
-    wp core download --allow-root --path=/var/www/html/wordpress//
+    wp core download --allow-root --path=/var/www/html/wordpress/
 fi
 
-# Vérifier si WordPress est déjà installé
 if ! wp core is-installed --allow-root --path=/var/www/html/wordpress/; then
     echo "Configuring WordPress..."
 
@@ -26,6 +24,8 @@ if ! wp core is-installed --allow-root --path=/var/www/html/wordpress/; then
     wp language core install en_US --activate --allow-root --path=/var/www/html/wordpress/
     wp plugin delete hello --allow-root --path=/var/www/html/wordpress/
     wp rewrite structure '/%postname%/' --allow-root --path=/var/www/html/wordpress/
+    wp plugin install redis-cache --activate --allow-root --path=/var/www/html/wordpress/
+    wp post create --post_title='Test Redis' --post_content='This is a test post to generate cache.' --post_status=publish --allow-root --path=/var/www/html/wordpress/
 fi
 
 chown -R www-data:www-data /var/www/html/wordpress
@@ -37,5 +37,11 @@ fi
 
 chown -R www-data:www-data /run/php
 chmod -R 755 /run/php
+
+if wp plugin is-active redis-cache --allow-root --path=/var/www/html/wordpress/; then
+    wp redis enable --allow-root --path=/var/www/html/wordpress/
+else
+    echo "Redis plugin not active. Skipping redis enable."
+fi
 
 exec /usr/sbin/php-fpm7.4 -F -R

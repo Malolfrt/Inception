@@ -17,6 +17,11 @@ define('SECURE_AUTH_SALT', 'your_unique_secure_auth_salt');
 define('LOGGED_IN_SALT', 'your_unique_logged_in_salt');
 define('NONCE_SALT', 'your_unique_nonce_salt');
 
+//redis
+define('WP_REDIS_HOST', getenv('REDIS_HOST'));
+define('WP_REDIS_PORT', getenv('REDIS_PORT'));
+define('WP_CACHE', true);
+
 // Préfixe des tables
 $table_prefix = 'wp_';
 
